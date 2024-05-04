@@ -1,14 +1,10 @@
-
-
+ 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /todolist/   # Adjust this to your subfolder's path
+  RewriteBase /todolist/   # Adjust this to your Angular app's subfolder, if applicable
 
-  # If a directory or a file exists, use it directly
-  RewriteCond %{REQUEST_FILENAME} -d [OR]
-  RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^ - [L]
-
-  # If the requested resource doesn't exist, use index.html
-  RewriteRule ^ /todolist/index.html [L]
+  # Redirect all requests that are not actual files or directories to index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
 </IfModule>
