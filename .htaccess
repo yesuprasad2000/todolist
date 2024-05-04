@@ -1,8 +1,14 @@
-RewriteEngine On
-# If an existing asset or directory is requested go to it as it is
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
-RewriteRule ^ - [L]
 
-# If the requested resource doesn't exist, use index.html
-RewriteRule ^ /todolist/index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /todolist/   # Adjust this to your subfolder's path
+
+  # If a directory or a file exists, use it directly
+  RewriteCond %{REQUEST_FILENAME} -d [OR]
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
+  # If the requested resource doesn't exist, use index.html
+  RewriteRule ^ /todolist/index.html [L]
+</IfModule>
